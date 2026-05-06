@@ -13,17 +13,19 @@ body {
   color: white;
 }
 
+/* TOPO */
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 15px;
 }
 
 .logo {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
   background: #d97706;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,14 +33,15 @@ body {
 }
 
 .menu-btn {
-  font-size: 25px;
+  font-size: 26px;
   cursor: pointer;
 }
 
+/* MENU */
 .menu {
   position: fixed;
-  right: -260px;
   top: 0;
+  right: -260px;
   width: 260px;
   height: 100%;
   background: #2a1a12;
@@ -48,22 +51,25 @@ body {
 
 .menu a {
   display: block;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   background: #3a2418;
   border-radius: 10px;
   cursor: pointer;
 }
 
+/* CONTEÚDO */
 .container {
   padding: 20px;
+  max-width: 400px;
+  margin: auto;
   text-align: center;
 }
 
 .btn {
   background: #d97706;
-  padding: 12px;
-  margin: 10px;
+  padding: 14px;
+  margin: 10px 0;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -89,47 +95,37 @@ body {
   <a onclick="participantes()">👤 Participantes</a>
   <a onclick="ranking()">🏆 Ranking</a>
   <a onclick="votacao()">🗳️ Votação</a>
+  <a onclick="inscricoes()">📝 Inscrições</a>
+  <a onclick="jogos()">🎮 Jogos</a>
+  <a onclick="cronograma()">📅 Cronograma</a>
+  <a onclick="fundador()">👑 Fundador</a>
 </div>
 
 <div class="container" id="app">
-  <h1>CHAMADOS PARA A FINAL</h1>
-  <p>Jogo bíblico que une fé e desafios</p>
-
-  <div class="btn" onclick="participantes()">👤 Participantes</div>
-  <div class="btn" onclick="ranking()">🏆 Ranking</div>
-  <div class="btn">📅 Cronograma</div>
 </div>
 
 <script>
-
-let votos = JSON.parse(localStorage.getItem("votos")) || {
-  Maria: 0,
-  Miguel: 0,
-  Pablo: 0
-};
-
-function salvar() {
-  localStorage.setItem("votos", JSON.stringify(votos));
-}
 
 function abrirMenu() {
   const menu = document.getElementById("menu");
   menu.style.right = menu.style.right === "0px" ? "-260px" : "0px";
 }
 
+/* TELAS */
+
 function home() {
-  document.getElementById("app").innerHTML = `
+  app.innerHTML = `
     <h1>CHAMADOS PARA A FINAL</h1>
-    <p>Jogo bíblico que une fé e desafios</p>
+    <p>Jogo bíblico dinâmico que fortalece o conhecimento na Palavra de Deus.</p>
 
     <div class="btn" onclick="participantes()">👤 Participantes</div>
     <div class="btn" onclick="ranking()">🏆 Ranking</div>
-    <div class="btn">📅 Cronograma</div>
+    <div class="btn" onclick="cronograma()">📅 Cronograma</div>
   `;
 }
 
 function participantes() {
-  document.getElementById("app").innerHTML = `
+  app.innerHTML = `
     <h1>Participantes</h1>
     <div class="card">Maria Eduarda - 16 anos</div>
     <div class="card">Miguel - 14 anos</div>
@@ -138,51 +134,53 @@ function participantes() {
 }
 
 function ranking() {
-  document.getElementById("app").innerHTML = `
+  app.innerHTML = `
     <h1>Ranking</h1>
-    <div class="card">Maria - ${votos.Maria} votos</div>
-    <div class="card">Miguel - ${votos.Miguel} votos</div>
-    <div class="card">Pablo - ${votos.Pablo} votos</div>
+    <div class="card">Maria - 0 PST</div>
+    <div class="card">Miguel - 0 PST</div>
+    <div class="card">Pablo - 0 PST</div>
   `;
 }
 
 function votacao() {
-
-  let liberado = false; // 🔥 MUDA PARA true DIA 11
-
-  if (!liberado) {
-    document.getElementById("app").innerHTML = `
-      <h1>Votação</h1>
-      <p>🕒 A votação ainda não está liberada</p>
-    `;
-    return;
-  }
-
-  document.getElementById("app").innerHTML = `
+  app.innerHTML = `
     <h1>Votação</h1>
-
-    <div class="card">
-      Maria
-      <button onclick="votar('Maria')">Votar</button>
-    </div>
-
-    <div class="card">
-      Miguel
-      <button onclick="votar('Miguel')">Votar</button>
-    </div>
-
-    <div class="card">
-      Pablo
-      <button onclick="votar('Pablo')">Votar</button>
-    </div>
+    <p>🕒 Disponível a partir do dia 11</p>
   `;
 }
 
-function votar(nome) {
-  votos[nome]++;
-  salvar();
-  alert("Voto computado!");
+function inscricoes() {
+  app.innerHTML = `
+    <h1>Inscrições</h1>
+    <p>Em breve</p>
+  `;
 }
+
+function jogos() {
+  app.innerHTML = `
+    <h1>Jogos</h1>
+    <p>Desafios bíblicos</p>
+  `;
+}
+
+function cronograma() {
+  app.innerHTML = `
+    <h1>Cronograma</h1>
+    <div class="card">📅 Dia 10 - Jogo</div>
+    <div class="card">📅 Dia 11 - Votação</div>
+  `;
+}
+
+function fundador() {
+  app.innerHTML = `
+    <h1>Fundador</h1>
+    <p>Informações do criador</p>
+  `;
+}
+
+/* INICIAR */
+const app = document.getElementById("app");
+home();
 
 </script>
 
