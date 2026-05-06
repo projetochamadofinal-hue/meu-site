@@ -1,10 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>Meu Site</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chamados Para a Final</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #1a0f0a;
+  color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #d97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.menu-btn {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.menu {
+  position: fixed;
+  right: -260px;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  background: #2a1a12;
+  padding: 20px;
+  transition: 0.3s;
+}
+
+.menu a {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  background: #3a2418;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.container {
+  padding: 20px;
+  text-align: center;
+}
+
+.btn {
+  background: #d97706;
+  padding: 12px;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card {
+  background: #3a2418;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+</style>
 </head>
+
 <body>
-  <h1>Meu site está online 🚀</h1>
-  <p>Chamados Para a Final</p>
+
+<div class="header">
+  <div class="logo">CF</div>
+  <div class="menu-btn" onclick="abrirMenu()">☰</div>
+</div>
+
+<div id="menu" class="menu">
+  <a onclick="home()">🏠 Home</a>
+  <a onclick="participantes()">👤 Participantes</a>
+  <a onclick="ranking()">🏆 Ranking</a>
+  <a onclick="votacao()">🗳️ Votação</a>
+</div>
+
+<div class="container" id="app">
+  <h1>CHAMADOS PARA A FINAL</h1>
+  <p>Jogo bíblico que une fé e desafios</p>
+
+  <div class="btn" onclick="participantes()">👤 Participantes</div>
+  <div class="btn" onclick="ranking()">🏆 Ranking</div>
+  <div class="btn">📅 Cronograma</div>
+</div>
+
+<script>
+
+let votos = JSON.parse(localStorage.getItem("votos")) || {
+  Maria: 0,
+  Miguel: 0,
+  Pablo: 0
+};
+
+function salvar() {
+  localStorage.setItem("votos", JSON.stringify(votos));
+}
+
+function abrirMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.right = menu.style.right === "0px" ? "-260px" : "0px";
+}
+
+function home() {
+  document.getElementById("app").innerHTML = `
+    <h1>CHAMADOS PARA A FINAL</h1>
+    <p>Jogo bíblico que une fé e desafios</p>
+
+    <div class="btn" onclick="participantes()">👤 Participantes</div>
+    <div class="btn" onclick="ranking()">🏆 Ranking</div>
+    <div class="btn">📅 Cronograma</div>
+  `;
+}
+
+function participantes() {
+  document.getElementById("app").innerHTML = `
+    <h1>Participantes</h1>
+    <div class="card">Maria Eduarda - 16 anos</div>
+    <div class="card">Miguel - 14 anos</div>
+    <div class="card">Pablo - 18 anos</div>
+  `;
+}
+
+function ranking() {
+  document.getElementById("app").innerHTML = `
+    <h1>Ranking</h1>
+    <div class="card">Maria - ${votos.Maria} votos</div>
+    <div class="card">Miguel - ${votos.Miguel} votos</div>
+    <div class="card">Pablo - ${votos.Pablo} votos</div>
+  `;
+}
+
+function votacao() {
+
+  let liberado = false; // 🔥 MUDA PARA true DIA 11
+
+  if (!liberado) {
+    document.getElementById("app").innerHTML = `
+      <h1>Votação</h1>
+      <p>🕒 A votação ainda não está liberada</p>
+    `;
+    return;
+  }
+
+  document.getElementById("app").innerHTML = `
+    <h1>Votação</h1>
+
+    <div class="card">
+      Maria
+      <button onclick="votar('Maria')">Votar</button>
+    </div>
+
+    <div class="card">
+      Miguel
+      <button onclick="votar('Miguel')">Votar</button>
+    </div>
+
+    <div class="card">
+      Pablo
+      <button onclick="votar('Pablo')">Votar</button>
+    </div>
+  `;
+}
+
+function votar(nome) {
+  votos[nome]++;
+  salvar();
+  alert("Voto computado!");
+}
+
+</script>
+
 </body>
 </html>
